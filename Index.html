@@ -1,16 +1,26 @@
 <!doctype html>
 <html ng-app="kkcounter">
   <head>
-    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <link rel="stylesheet" type="text/css" href="app.css" />
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <title>KKCounter with angularjs</title>    
   </head>
   <body>
-    <div ng-controller="MainCtrl">
+    <div class="container" ng-controller="MainCtrl">
       <label>Name:</label>
       <input type="text" ng-model="yourName" placeholder="Enter a name here">
       <hr>
-      <h1>Hello {{text}}! - {{yourName}}</h1>
+      <h1 class="repeat-item">
+        <span class="glyphicon glyphicon-search"></span>
+        Hello {{text}}! - {{yourName}}</h1>
+
     </div>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-animate.js"></script>
   <script type="text/javascript" src="app.js"></script>  
   </body>
 </html>
