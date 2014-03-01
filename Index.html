@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html ng-app="kkcounter">
   <head>
     <meta charset="utf-8">
@@ -11,11 +11,21 @@
   </head>
   <body>
     <div class="container" ng-controller="MainCtrl">
-      <div class="form-group col-span9">
-        <input type="text" class="form-control input-lg" id="iSearchText" alt="What you eat today?">
-        <span class="glyphicon glyphicon-search form-control-feedback"></span>
-      </div>
+      <h1>Calorie Counter</h1>  
+      <form class="navbar-form" role="search">
+        <div class="input-group">
+          <input type="text" 
+            name="srch-term" id="srch-term"
+            class="form-control" 
+            placeholder="What have you done????"  
+            ng-model="text" ng-keypress="searching($event)" >
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit" ng-click="search()"><i class="glyphicon glyphicon-search"></i></button>
+          </div>
+        </div>
+      </form>
       <hr>
+
 
     </div>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
