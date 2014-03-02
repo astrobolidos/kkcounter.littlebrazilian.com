@@ -18,7 +18,9 @@
             name="srch-term" id="srch-term"
             class="form-control" 
             placeholder="What have you done????"  
-            ng-model="text" ng-keypress="searching($event)" >
+            ng-model="text" 
+            ng-keypress="searching($event)"
+            ng-trim='true' >
           <div class="input-group-btn">
             <button class="btn btn-default" type="submit" ng-click="search()"><i class="glyphicon glyphicon-search"></i></button>
           </div>
