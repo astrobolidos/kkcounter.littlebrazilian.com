@@ -20,7 +20,9 @@
             placeholder="What have you done????"  
             ng-model="text" 
             ng-keypress="searching($event)"
-            ng-trim='true' >
+            ng-trim='true'
+            popover-placement="bottom" 
+            popover="popOverMessage"  >
           <div class="input-group-btn">
             <button class="btn btn-default" type="submit" ng-click="search()"><i class="glyphicon glyphicon-search"></i></button>
           </div>
@@ -28,8 +30,15 @@
       </form>
       <hr>
     </div>
+  <script type="text/ng-template" id="customTemplate.html">
+    <a>
+        
+        <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+    </a>
+  </script>    
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular-animate.js"></script>
+  <script type="text/javascript" src="js/lib/ui-bootstrap-tpls-0.10.0.min.js"></script>
   <script type="text/javascript" src="app.js"></script>  
   </body>
 </html>

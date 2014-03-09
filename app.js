@@ -1,4 +1,4 @@
-var app = angular.module('kkcounter', ['ngAnimate']);
+var app = angular.module('kkcounter', ['ngAnimate', 'ui.bootstrap']);
 
 app.factory('calorieService', function($http) {
 	return {
