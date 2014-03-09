@@ -1,6 +1,14 @@
 var app = angular.module('kkcounter', ['ngAnimate']);
 
-app.controller('MainCtrl', ['$scope', '$filter', function ($scope, $filter) {
+app.factory('calorieService', function($http) {
+	return {
+		updateCalories: function(info) {
+			return $http.post('http://test/api/calories', info);
+		}
+	}
+});
+
+app.controller('MainCtrl', function ($scope, $filter, calorieService) {
     $scope.text = [];
 
     $scope.search = function() {
@@ -29,8 +37,12 @@ app.controller('MainCtrl', ['$scope', '$filter', function ($scope, $filter) {
 		}
 
 		if(/[\d.]*[\d]+[ ]*[c]/i.test(value)) {
-			info.calories = Number($.trim(value.replace('c', '')))
-			return updateCalories(info);
+			info.calories = Number(value.replace('c', ''));
+			calorieService.updateCalories(info)
+				.success(function() { console.log('updateCalorie sucess!'); })
+				.error(function(data, status, headers, config) { console.log('error on updateCalories:' + status + ' ' + headers); });
+
+			return info;
 		}
 
 		if(/[\d.]*[\d]+[ ]*[k]/i.test(value)) {
@@ -41,13 +53,13 @@ app.controller('MainCtrl', ['$scope', '$filter', function ($scope, $filter) {
 		if(/([\d]+[ ]*[g])[ ]*[\w]+/.test(value)) {
 			var search = { foodName: '', quantity: 0, caloriesPer100: 0 };
 			var quantityMatch = value.match(/[\d]+[ ]*[kg]/)[0];
-			search.quantity = Number($.trim(quantityMatch.replace('g', '')));
+			search.quantity = Number(quantityMatch.replace('g', ''));
 
 			value = value.replace(quantityMatch, '');
-			search.foodName = $.trim(value);
+			search.foodName = value;
 
 			console.log(search);
-			return $.param(search)
+			return search;
 		}
 	};
-}]);
+});
