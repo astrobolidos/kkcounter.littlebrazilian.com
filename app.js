@@ -10,6 +10,7 @@ app.factory('calorieService', function($http) {
 
 app.controller('MainCtrl', function ($scope, $filter, calorieService) {
     $scope.popOverMessage = [];
+    $scope.icon = 'search';
 
     $scope.search = function() {
     	console.log('you have clicked the search');
@@ -17,12 +18,16 @@ app.controller('MainCtrl', function ($scope, $filter, calorieService) {
 
     $scope.searching = function(evt) {
     	try {
-    		info = parseValue(evt.target);
-    		if(info != undefined) {
-	 			console.log(info);
-				$scope.popOverMessage = info.msg;   			
-    		}
+    		updateUI($scope, parseValue(evt.target));
     	} catch(e) { console.log(e); }
+    };
+
+    var updateUI = function(scope, info) {
+		if(info != undefined) {
+			console.log(info);
+			$scope.icon = info.msg == 'updating...' ? 'cog' : 'search';
+			$scope.popOverMessage = info.msg;   		
+		}		
     };
 
     var parseValue = function(target) {
