@@ -21,6 +21,7 @@
             ng-model="text" 
             ng-keypress="searching($event)"
             ng-trim='true'
+            ng-disabled = 'isSearching'
             popover-placement="bottom" 
             popover="{{popOverMessage}}"  >
           <div class="input-group-btn">

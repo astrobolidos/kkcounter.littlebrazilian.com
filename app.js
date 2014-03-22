@@ -11,6 +11,7 @@ app.factory('calorieService', function($http) {
 app.controller('MainCtrl', function ($scope, $filter, calorieService) {
     $scope.popOverMessage = [];
     $scope.icon = 'search';
+    $scope.isSearching = false;
 
     $scope.search = function() {
     	console.log('you have clicked the search');
@@ -25,7 +26,9 @@ app.controller('MainCtrl', function ($scope, $filter, calorieService) {
     var updateUI = function(scope, info) {
 		if(info != undefined) {
 			console.log(info);
-			$scope.icon = info.msg == 'updating...' ? 'cog' : 'search';
+			isUpdating = info.msg == 'updating...';
+			$scope.isSearching = isUpdating ? true : false;
+			$scope.icon = isUpdating ? 'cog' : 'search';
 			$scope.popOverMessage = info.msg;   		
 		}		
     };
@@ -55,7 +58,7 @@ app.controller('MainCtrl', function ($scope, $filter, calorieService) {
 			
 			calorieService.updateCalories(info)
 				.success(function() { 
-					info.msg = 'updateCalorie sucess!'; 
+					info.msg = 'updateCalorie success!'; 
 				})
 				.error(function(data, status, headers, config) { 
 					info.msg = 'error on updateCalories:' + status + ' ' + data;
