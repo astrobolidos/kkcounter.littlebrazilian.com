@@ -59,7 +59,7 @@ app.controller('MainCtrl', function ($scope, $filter, calorieService) {
 				})
 				.error(function(data, status, headers, config) { 
 					info.msg = 'error on updateCalories:' + status + ' ' + data;
-					$scope.popOverMessage = info.msg;
+					updateUI($scope, info);
 				});
 
 			return info;
