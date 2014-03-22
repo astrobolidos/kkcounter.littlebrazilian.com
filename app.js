@@ -9,7 +9,7 @@ app.factory('calorieService', function($http) {
 });
 
 app.controller('MainCtrl', function ($scope, $filter, calorieService) {
-    $scope.text = [];
+    $scope.popOverMessage = [];
 
     $scope.search = function() {
     	console.log('you have clicked the search');
@@ -17,13 +17,21 @@ app.controller('MainCtrl', function ($scope, $filter, calorieService) {
 
     $scope.searching = function(evt) {
     	try {
-	    	console.log( parseValue(evt.target) );
+    		info = parseValue(evt.target);
+    		if(info != undefined) {
+	 			console.log(info);
+				$scope.popOverMessage = info.msg;   			
+    		}
     	} catch(e) { console.log(e); }
     };
 
     var parseValue = function(target) {
 		var value = target.value;
-		var info = { 'calories': 0, 'weight': 0, 'date': $filter('date')(new Date(), "yyyyMMdd") };
+		var info = { 
+			'calories': 0, 
+			'weight': 0, 
+			'date': $filter('date')(new Date(), "yyyyMMdd"), 
+			'msg' : '' };
 		
 		var dateMatch = value.match(/(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])$/);
 		if(dateMatch && dateMatch.length > 0 && moment(dateMatch[0], 'DD/MM').isValid()) {
@@ -37,10 +45,17 @@ app.controller('MainCtrl', function ($scope, $filter, calorieService) {
 		}
 
 		if(/[\d.]*[\d]+[ ]*[c]/i.test(value)) {
+			info.msg = 'updating...';
 			info.calories = Number(value.replace('c', ''));
+			
 			calorieService.updateCalories(info)
-				.success(function() { console.log('updateCalorie sucess!'); })
-				.error(function(data, status, headers, config) { console.log('error on updateCalories:' + status + ' ' + headers); });
+				.success(function() { 
+					info.msg = 'updateCalorie sucess!'; 
+				})
+				.error(function(data, status, headers, config) { 
+					info.msg = 'error on updateCalories:' + status + ' ' + data;
+					$scope.popOverMessage = info.msg;
+				});
 
 			return info;
 		}

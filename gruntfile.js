@@ -9,7 +9,7 @@ module.exports = function(grunt) {
             },
             scripts: {
                 files: ['*.*'],
-                tasks: ['concat', 'uglify'],
+                tasks: [/*'concat', 'uglify'*/],
                 options: {
                     spawn: false,
                 },
